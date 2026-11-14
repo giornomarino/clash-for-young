@@ -2,7 +2,7 @@
 
 一个新手也能自己装好、用好的代理客户端：**粘贴订阅、点连接、给网站选地区**。
 
-基于 [mihomo](https://github.com/MetaCubeX/mihomo) 内核，支持 Mac 和 Windows，只支持 Clash 格式订阅。
+基于 [mihomo](https://github.com/MetaCubeX/mihomo) 内核，支持 Mac 和 Windows， Clash 格式订阅。
 
 ## 功能（第一版）
 
