@@ -49,9 +49,9 @@ pub fn id() -> &'static str {
 /// 下载页（分享按钮复制的链接）
 pub fn download_url() -> &'static str {
     if is_research() {
-        "https://github.com/y99854-ui/clash-for-research/releases/latest"
+        "https://github.com/giornomarino/clash-for-research/releases/latest"
     } else {
-        "https://github.com/y99854-ui/clash-for-young/releases/latest"
+        "https://github.com/giornomarino/clash-for-young/releases/latest"
     }
 }
 

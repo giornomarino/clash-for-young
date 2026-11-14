@@ -25,7 +25,7 @@
 
 ## Pro 版
 
-需要更强大、更专业的功能？可以联系我获取 **Pro** 版和 **WRT Pro** 版：📧 annoying-hut-vowel@duck.com
+需要更强大、更专业的功能？可以联系我获取 **Pro** 版和 **WRT Pro** 版（适用于 OpenWrt）：📧 annoying-hut-vowel@duck.com
 
 ## 下载安装
 

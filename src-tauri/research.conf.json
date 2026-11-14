@@ -25,7 +25,7 @@
   "plugins": {
     "updater": {
       "endpoints": [
-        "https://github.com/y99854-ui/clash-for-research/releases/latest/download/latest.json"
+        "https://github.com/giornomarino/clash-for-research/releases/latest/download/latest.json"
       ]
     }
   }

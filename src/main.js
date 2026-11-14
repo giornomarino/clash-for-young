@@ -1069,7 +1069,7 @@ async function copyText(text) {
   }
 }
 $("shareBtn").addEventListener("click", async () => {
-  const text = S?.downloadUrl || "https://github.com/y99854-ui/clash-for-young/releases/latest";
+  const text = S?.downloadUrl || "https://github.com/giornomarino/clash-for-young/releases/latest";
   if (await copyText(text)) toast(L("已复制下载链接，粘贴发给朋友吧", "Download link copied. Paste it to a friend."));
   else await askText(L("复制下面的链接发给朋友", "Copy this link and send it to a friend"), text);
 });
