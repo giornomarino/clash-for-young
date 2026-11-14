@@ -62,30 +62,6 @@
 
 订阅里自带的规则不使用，只用它的节点。
 
-## 从源码运行
-
-需要 [Rust](https://rustup.rs) 和 [Node.js](https://nodejs.org)（Mac 还需要 Xcode 命令行工具）。
-
-```bash
-npm install
-npm run deps     # 下载 mihomo 内核和地理数据（需要能访问 GitHub）
-npm run dev      # 开发模式
-npm run build    # 打包
-```
-
-Mac 通用版：`node scripts/fetch-deps.mjs --target universal-apple-darwin && npm run tauri build -- --target universal-apple-darwin`
-
-测试：
-
-```bash
-cd src-tauri
-cargo test                          # 单元测试
-# 端到端测试：需要真实 mihomo 和一个本地订阅服务
-CFY_MIHOMO=/path/to/mihomo CFY_SUB_URL=http://127.0.0.1:18080/sub CFY_GEO=resources/geo cargo test -- --ignored
-```
-
-推送 `v` 开头的标签，GitHub Actions 会自动打包 Mac 和 Windows 安装包并附到发布页。
-
 
 
 ## 许可证
