@@ -86,26 +86,7 @@ CFY_MIHOMO=/path/to/mihomo CFY_SUB_URL=http://127.0.0.1:18080/sub CFY_GEO=resour
 
 推送 `v` 开头的标签，GitHub Actions 会自动打包 Mac 和 Windows 安装包并附到发布页。
 
-## 项目结构
 
-```
-src/                    界面（普通网页）
-  index.html  style.css  main.js
-src-tauri/src/
-  main.rs               入口、启动和退出处理、定时更新订阅
-  app.rs                软件状态和界面调用的全部命令
-  subscription.rs       下载、解析订阅，按节点名分地区
-  configgen.rs          生成 mihomo 配置（策略组和规则）
-  mobile.rs             导出手机配置
-  core.rs               启动/停止/自动重启内核，重新加载配置
-  sysproxy_ctl.rs       设置和恢复系统代理
-  check.rs              分流检查（沿用「分流检查」工具）
-  sites.rs / sites.json 内置网站和域名组
-  settings.rs           用户设置
-scripts/fetch-deps.mjs  下载内核和地理数据
-```
-
-数据保存在：Mac `~/Library/Application Support/com.joe.clash-for-young/`，Windows `%APPDATA%\com.joe.clash-for-young\`。
 
 ## 许可证
 
