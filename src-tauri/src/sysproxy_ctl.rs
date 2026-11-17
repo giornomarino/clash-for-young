@@ -46,13 +46,33 @@ pub fn enable(dir: &Path, port: u16) -> Result<(), String> {
     p.set_system_proxy().map_err(|e| crate::tr!("设置系统代理失败：{e}", "Failed to set the system proxy: {e}"))
 }
 
+/// 备份里的代理现在能不能连上（只检查本机地址；远程代理无法可靠判断，照常还原）
+fn alive(host: &str, port: u16) -> bool {
+    let local = matches!(host, "127.0.0.1" | "localhost" | "::1" | "0.0.0.0");
+    if !local {
+        return true;
+    }
+    let addr = std::net::SocketAddr::from(([127, 0, 0, 1], port));
+    std::net::TcpStream::connect_timeout(&addr, std::time::Duration::from_millis(300)).is_ok()
+}
+
 /// 恢复连接前的系统代理设置；没有备份就直接关闭
 pub fn disable(dir: &Path, port: u16) -> Result<(), String> {
+    // 系统代理已经被别的软件接管、而且那个代理还活着（比如先连了科研版再连 Pro，然后断开科研版）：
+    // 不要动它，否则会把正在用的代理关掉
+    if let Ok(cur) = Sysproxy::get_system_proxy() {
+        if cur.enable && !is_ours(&cur, port) && alive(&cur.host, cur.port) {
+            let _ = std::fs::remove_file(backup_path(dir));
+            return Ok(());
+        }
+    }
     let backup: Option<Backup> =
         std::fs::read_to_string(backup_path(dir)).ok().and_then(|t| serde_json::from_str(&t).ok());
     let restore = match backup {
-        // 原来就开着别的代理（而且不是我们自己）：还原它
-        Some(b) if b.enable && !(b.port == port && b.host == HOST) => {
+        // 原来就开着别的代理（而且不是我们自己），并且它现在还活着：还原它。
+        // 如果那个代理已经退出（比如之前开着 Clash for Young / Clash Verge，后来关掉了），
+        // 还原过去就会让整台电脑断网，所以改成直接关闭系统代理。
+        Some(b) if b.enable && !(b.port == port && b.host == HOST) && alive(&b.host, b.port) => {
             Sysproxy { enable: true, host: b.host, port: b.port, bypass: b.bypass }
         }
         Some(b) => {

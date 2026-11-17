@@ -318,7 +318,9 @@ fn graceful_stop(c: &mut Child) {
             .stdout(Stdio::null())
             .stderr(Stdio::null())
             .status();
-        for _ in 0..20 {
+        // 增强模式下内核退出时要撤掉虚拟网卡的路由，连接多时可能要好几秒；
+        // 等得太短就被强制结束，路由留在系统里，整台电脑会断网。最多等 8 秒。
+        for _ in 0..80 {
             if matches!(c.try_wait(), Ok(Some(_))) {
                 return;
             }
